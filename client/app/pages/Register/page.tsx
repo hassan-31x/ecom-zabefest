@@ -8,8 +8,19 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import axios from 'axios';
 
+
+interface FormData {
+  name: string;
+  phoneNumber: string;
+  cnicNumber: string;
+  bankAccountNumber: string;
+  email: string;
+  password: string;
+}
 const RegisterForm = () => {
+
   const [submitting, setSubmitting] = useState(false);
   const validationSchema = Yup.object().shape({
     name: Yup.string()
@@ -40,20 +51,31 @@ const RegisterForm = () => {
     resolver: yupResolver(validationSchema)
   });
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: FormData) => {
+    console.log(data);
     setSubmitting(true);
     try {
-      // Simulate async submission
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      console.log(data); // Handle form submission here
-      alert('Registration successful!');
-      reset(); // Clear form after successful submission
+      const response = await axios.post('http://localhost:5000/api/v1/auth/register', data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (response.status === 201) {
+        console.log(response.data); 
+        alert('Registration successful through API!');
+        reset(); 
+      } else {
+        throw new Error(response.data.message || 'Registration failed');
+      }
     } catch (error) {
       console.error(error);
+      alert('Registration failed');
     } finally {
       setSubmitting(false);
     }
   };
+  
 
   return (
     <Container maxWidth="sm">
