@@ -41,13 +41,11 @@ const LoginForm = () => {
     try {
       const response = await axios.post('http://localhost:5000/api/v1/auth/login', data);
       if (response.status === 200) {
-        console.log(response.data);
         alert('Login successful!');
         form.reset();
       } else {
         throw new Error('Login failed');
       }
-      console.log(data)
     } catch (error) {
       console.error(error);
       alert('Login failed');
@@ -88,7 +86,9 @@ const LoginForm = () => {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" disabled={form.formState.isSubmitting}>
+          {form.formState.isSubmitting ? 'Submitting...' : 'Submit'}
+        </Button>
       </form>
     </Form>
     </div>
