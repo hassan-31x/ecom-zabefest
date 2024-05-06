@@ -118,6 +118,7 @@ const FormControl = React.forwardRef<
       }
       aria-invalid={!!error}
       {...props}
+      className="!mt-1"
     />
   )
 })

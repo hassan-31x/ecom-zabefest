@@ -12,7 +12,7 @@ const PasswordInput = forwardRef<HTMLInputElement, InputProps>(({ className, ...
   const disabled = props.value === "" || props.value === undefined || props.disabled;
 
   return (
-    <div className="relative">
+    <div className="relative !mt-1">
       <Input type={showPassword ? "text" : "password"} className={cn("hide-password-toggle pr-10", className)} ref={ref} {...props} />
       <Button
         type="button"
