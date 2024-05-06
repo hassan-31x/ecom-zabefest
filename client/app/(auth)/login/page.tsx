@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { toast } from 'react-toastify';
 
 interface FormData {
     email: string;
@@ -40,15 +41,11 @@ const LoginForm = () => {
     setSubmitting(true);
     try {
       const response = await axios.post('http://localhost:5000/api/v1/auth/login', data);
-      if (response.status === 200) {
-        alert('Login successful!');
+        toast.success('Login successful!');
         form.reset();
-      } else {
-        throw new Error('Login failed');
-      }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      alert('Login failed');
+      toast.error(error?.message?.response?.data?.message || error?.message || 'Login failed. Try again later/');
     } finally {
       setSubmitting(false);
     }

@@ -54,10 +54,12 @@ const generateTokens = async (userId) => {
 export const loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
+    console.log("🚀 ~ loginUser ~ password:", password)
     if (!email) return next("Email is required");
     if (!password) return next("Password is required");
 
     const userData = await User.findOne({ email });
+    console.log("🚀 ~ loginUser ~ userData:", userData)
     if (!userData) return next("Invalid credentials");
 
     const isPassCorrect = await userData.comparePassword(password);
