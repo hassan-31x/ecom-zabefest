@@ -8,7 +8,13 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import axios from 'axios';
 
+
+interface FormData {
+    email: string;
+    password: string;
+  }
 const LoginForm = () => {
   const [submitting, setSubmitting] = useState(false);
   const validationSchema = Yup.object().shape({
@@ -23,19 +29,25 @@ const LoginForm = () => {
     resolver: yupResolver(validationSchema)
   });
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data:FormData) => {
     setSubmitting(true);
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      console.log(data); 
-      alert('Login successful!');
-      reset(); 
+      const response = await axios.post('http://localhost:5000/api/v1/auth/login', data);
+      if (response.status === 200) {
+        console.log(response.data);
+        alert('Login successful!');
+        reset();
+      } else {
+        throw new Error('Login failed');
+      }
     } catch (error) {
       console.error(error);
+      alert('Login failed');
     } finally {
       setSubmitting(false);
     }
   };
+
 
   return (
     <Container maxWidth="sm">

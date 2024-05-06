@@ -8,52 +8,46 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import axios from 'axios';
 
-const RegisterForm = () => {
+
+interface FormData {
+    email: string;
+    password: string;
+  }
+const LoginForm = () => {
   const [submitting, setSubmitting] = useState(false);
   const validationSchema = Yup.object().shape({
-    name: Yup.string()
-      .matches(/^[A-Za-z\s]+$/, 'Name should be in alphabets')
-      .required('Name is required'),
-    phoneNumber: Yup.string()
-      .matches(/^03[0-9]{9}$/, 'Invalid phone number format')
-      .required('Phone Number is required'),
-    cnicNumber: Yup.string()
-      .matches(/^[0-9]{13}$/, 'CNIC must be exactly 13 digits')
-      .required('CNIC Number is required'),
-    bankAccountNumber: Yup.string()
-      .matches(/^[0-9]{16}$/, 'Bank Account must be exactly 16 digits')
-      .required('Bank Account Number is required'),
     email: Yup.string()
       .email('Invalid email address')
       .required('Email is required'),
-      password: Yup.string()
-    .required('Password is required')
-    .min(8, 'Password must be at least 8 characters')
-    .matches(
-      /[A-Z]/,
-      'Password must contain at least one uppercase letter'
-    ),
+    password: Yup.string()
+      .required('Password is required'),
   });
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm({
     resolver: yupResolver(validationSchema)
   });
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data:FormData) => {
     setSubmitting(true);
     try {
-      // Simulate async submission
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      console.log(data); // Handle form submission here
-      alert('Registration successful!');
-      reset(); // Clear form after successful submission
+      const response = await axios.post('http://localhost:5000/api/v1/auth/login', data);
+      if (response.status === 200) {
+        console.log(response.data);
+        alert('Login successful!');
+        reset();
+      } else {
+        throw new Error('Login failed');
+      }
     } catch (error) {
       console.error(error);
+      alert('Login failed');
     } finally {
       setSubmitting(false);
     }
   };
+
 
   return (
     <Container maxWidth="sm">
@@ -67,49 +61,9 @@ const RegisterForm = () => {
         }}
       >
         <Typography variant="h4" align="center" gutterBottom sx={{ fontWeight: 'bold' }}>
-          Register
+          Login
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <TextField
-            label="Name"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            placeholder="Enter your name"
-            {...register('name')}
-            error={!!errors.name}
-            helperText={errors.name?.message}
-          />
-          <TextField
-            label="Phone Number"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            placeholder="e.g., 03123456789"
-            {...register('phoneNumber')}
-            error={!!errors.phoneNumber}
-            helperText={errors.phoneNumber?.message}
-          />
-          <TextField
-            label="CNIC Number"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            placeholder="Enter your CNIC number"
-            {...register('cnicNumber')}
-            error={!!errors.cnicNumber}
-            helperText={errors.cnicNumber?.message}
-          />
-          <TextField
-            label="Bank Account Number"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            placeholder="Enter your bank account number"
-            {...register('bankAccountNumber')}
-            error={!!errors.bankAccountNumber}
-            helperText={errors.bankAccountNumber?.message}
-          />
           <TextField
             label="Email"
             variant="outlined"
@@ -139,7 +93,7 @@ const RegisterForm = () => {
             disabled={submitting}
             sx={{ marginTop: 2 }}
           >
-            {submitting ? 'Submitting...' : 'Register'}
+            {submitting ? 'Logging in...' : 'Login'}
           </Button>
         </form>
       </Box>
@@ -147,4 +101,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default LoginForm;
