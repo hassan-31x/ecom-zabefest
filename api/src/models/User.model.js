@@ -17,21 +17,24 @@ const UserSchema = new Schema(
     password: {
       type: String,
       required: [true, "Password is required"],
-      minlength: [true, "Password must be greater than 6 charcters"],
+      minlength: [true, "Password must be greater than 6 characters"],
     },
-    fullName: {
+    name: {
       type: String,
       required: [true, "Name is required"],
-      trim: true,
-      index: true,
     },
-    hasNotifications: {
-      type: Boolean,
-      default: false,
+    phoneNumber: {
+      type: String,
+      required: [true, "Phone number is required"],
     },
-    city: String,
-    phone: String,
-    refreshToken: String,
+    cnicNumber: {
+      type: String,
+      required: [true, "CNIC number is required"],
+    },
+    bankAccountNumber: {
+      type: String,
+      required: [true, "Bank account number is required"],
+    },
   },
   { timestamps: true }
 );

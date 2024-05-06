@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 
 export const registerUser = async (req, res, next) => {
   try {
-    const { email, password, fullName, city, phone } = req.body;
+    const { email, password, name,cnicNumber,bankAccountNumber,phoneNumber } = req.body;
     if (password.includes(" "))
       return next("Password must not contain any white spaces");
 
@@ -13,9 +13,11 @@ export const registerUser = async (req, res, next) => {
     const user = await User.create({
       email,
       password,
-      fullName,
-      city,
-      phone,
+      name,
+      cnicNumber,
+      bankAccountNumber,
+      phoneNumber,
+
     });
     if (!user) return next("Failed to create an account");
 
