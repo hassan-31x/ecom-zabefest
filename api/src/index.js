@@ -17,10 +17,10 @@ const app = express();
 
 const corsOptions = {
   credentials: true,
-  origin:
-    process.env.NODE_ENV === "production"
-      ? "http://localhost:3000"
-      : "http://localhost:3000",
+  origin: ['http://localhost:3000', 'https://ecom-zabefest.vercel.app']
+    // process.env.NODE_ENV === "production"
+    //   ? "http://localhost:3000"
+    //   : "http://localhost:3000",
 };
 
 app.use(cors(corsOptions));
