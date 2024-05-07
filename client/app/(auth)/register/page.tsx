@@ -21,9 +21,8 @@ interface FormData {
   password: string;
 }
 const RegisterForm = () => {
-  const [submitting, setSubmitting] = useState(false);
-
   const router = useRouter();
+
   const validationSchema = Yup.object().shape({
     name: Yup.string()
       .matches(/^[A-Za-z\s]+$/, "Name should be in alphabets")
@@ -65,92 +64,105 @@ const RegisterForm = () => {
   };
 
   return (
-    <div>
+    <div className="w-2/3 md:w-[85%] lg:w-[95%] xl:w-[85%] flex flex-col items-center">
+      <div className="mb-10 space-y-1">
+        <h2 className="font-bold text-3xl md:text-4xl text-center">Welcome Back</h2>
+        <p className="text-xs md:text-sm text-center text-customGray">Login to your account</p>
+      </div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="John Doe" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input placeholder="john.doe@gmail.com" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <PasswordInput placeholder="testpassword123?" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="phoneNumber"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Phone</FormLabel>
-                <FormControl>
-                  <Input placeholder="+92XXX-XXXXXXX" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="cnicNumber"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>CNIC Number</FormLabel>
-                <FormControl>
-                  <Input placeholder="+92XXX-XXXXXXX" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="bankAccountNumber"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Bank Account Number</FormLabel>
-                <FormControl>
-                  <Input placeholder="+92XXX-XXXXXXX" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit" disabled={form.formState.isSubmitting}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-4 flex-col items-center w-full mb-4">
+          <div className="flex flex-col md:flex-row gap-4 md:gap-2 lg:gap-2 xl:gap-4 items-center w-3/4 md:w-full md:max-w-[590px]">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="John Doe" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="phoneNumber"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Phone</FormLabel>
+                  <FormControl>
+                    <Input placeholder="+92XXX-XXXXXXX" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div className="flex flex-col md:flex-row gap-4 md:gap-2 xl:gap-4 items-center w-3/4 md:w-full md:max-w-[590px]">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input placeholder="john.doe@gmail.com" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <PasswordInput placeholder="testpassword123?" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div className="flex flex-col md:flex-row gap-4 md:gap-2 xl:gap-4 items-center !mb-5 w-3/4 md:w-full md:max-w-[590px]">
+            <FormField
+              control={form.control}
+              name="cnicNumber"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>CNIC Number</FormLabel>
+                  <FormControl>
+                    <Input placeholder="+92XXX-XXXXXXX" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="bankAccountNumber"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Bank Account Number</FormLabel>
+                  <FormControl>
+                    <Input placeholder="+92XXX-XXXXXXX" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <Button type="submit" disabled={form.formState.isSubmitting} className="w-3/4 md:w-full md:max-w-[590px] mx-auto h-12 text-[13px] rounded-xl">
             {form.formState.isSubmitting ? "Submitting..." : "Submit"}
           </Button>
         </form>
-        <span>
+        <span className="text-xs text-customGray">
           Already Registered?{" "}
           <Link href="/login" className="text-primary hover:underline">
             Login instead

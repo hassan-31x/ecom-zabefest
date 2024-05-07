@@ -19,8 +19,8 @@ interface FormData {
   password: string;
 }
 const LoginForm = () => {
-
-  const router = useRouter()
+  const router = useRouter();
+  
   const validationSchema = Yup.object().shape({
     email: Yup.string().required("Email is required").email("Invalid email address"),
     password: Yup.string().required("Password is required"),
@@ -43,12 +43,10 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="w-1/2 lg:w-3/4 2xl:w-1/2 max-w-[380px] flex flex-col items-center">
+    <div className="w-2/3 max-w-[350px] lg:max-w-[380px] flex flex-col items-center">
       <div className="mb-10 space-y-1">
-
-      <h2 className="font-bold text-3xl md:text-4xl text-center">Welcome Back</h2>
-      <p className="text-xs md:text-sm text-center text-customGray">
-        Login to your account</p>
+        <h2 className="font-bold text-3xl md:text-4xl text-center">Welcome Back</h2>
+        <p className="text-xs md:text-sm text-center text-customGray">Login to your account</p>
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full mb-4">
@@ -72,10 +70,7 @@ const LoginForm = () => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <PasswordInput className="mb-5"
-                    placeholder="testpassword123?"
-                    {...field}
-                  />
+                  <PasswordInput className="mb-5" placeholder="testpassword123?" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -86,7 +81,12 @@ const LoginForm = () => {
           </Button>
         </form>
 
-        <span className="text-xs text-customGray">New to platform? <Link href='/register' className="text-primary hover:underline">Create an account</Link></span>
+        <span className="text-xs text-customGray">
+          New to platform?{" "}
+          <Link href="/register" className="text-primary hover:underline">
+            Create an account
+          </Link>
+        </span>
       </Form>
     </div>
   );
