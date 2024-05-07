@@ -48,7 +48,7 @@ const UserButton = () => {
           <span className="sr-only">Toggle user menu</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="bg-bg">
+      <DropdownMenuContent align="end" className="bg-white">
         <DropdownMenuLabel className="text-text">My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="text-black hover:!bg-white hover:text-black cursor-default">{user.name}</DropdownMenuItem>
