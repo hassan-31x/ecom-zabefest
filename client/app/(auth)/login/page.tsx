@@ -38,7 +38,7 @@ const LoginForm = () => {
       localStorage.setItem("accessToken", response.data.data.accessToken);
       toast.success("Login successfull!");
       form.reset();
-      router.push("/");
+      router.refresh();
     } catch (error: any) {
       console.error(error);
       toast.error(error?.message?.response?.data?.message || error?.message || "Login failed. Try again later!");
