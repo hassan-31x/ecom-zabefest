@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Scanner } from "@yudiel/react-qr-scanner";
 import { toast } from "react-toastify";
@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import "./scanner.css";
 
 const QrScanner = () => {
+  const [isMounted, setIsMounted] = useState(false);
   const [data, setData] = useState("");
 
   const handleResult = (result: any) => {
@@ -17,6 +18,12 @@ const QrScanner = () => {
       console.log(quantityInput);
     }
   };
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  if (!isMounted) return null;
 
   return (
     <div className="h-screen flex items-center w-full scanner">
