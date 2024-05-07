@@ -43,9 +43,15 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="w-1/2">
+    <div className="w-1/2 lg:w-3/4 2xl:w-1/2 max-w-[380px] flex flex-col items-center">
+      <div className="mb-10 space-y-1">
+
+      <h2 className="font-bold text-3xl md:text-4xl text-center">Welcome Back</h2>
+      <p className="text-xs md:text-sm text-center text-customGray">
+        Login to your account</p>
+      </div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full mb-4">
           <FormField
             control={form.control}
             name="email"
@@ -66,7 +72,7 @@ const LoginForm = () => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <PasswordInput
+                  <PasswordInput className="mb-5"
                     placeholder="testpassword123?"
                     {...field}
                   />
@@ -75,12 +81,12 @@ const LoginForm = () => {
               </FormItem>
             )}
           />
-          <Button type="submit" disabled={form.formState.isSubmitting}>
+          <Button type="submit" disabled={form.formState.isSubmitting} className="w-full h-12 text-[13px] rounded-xl">
             {form.formState.isSubmitting ? "Submitting..." : "Submit"}
           </Button>
         </form>
 
-        <span>New to platform? <Link href='/register' className="text-primary hover:underline">Create an account</Link></span>
+        <span className="text-xs text-customGray">New to platform? <Link href='/register' className="text-primary hover:underline">Create an account</Link></span>
       </Form>
     </div>
   );
