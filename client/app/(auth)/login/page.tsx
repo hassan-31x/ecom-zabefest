@@ -33,6 +33,9 @@ const LoginForm = () => {
   const onSubmit = async (data: FormData) => {
     try {
       const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}auth/login`, data);
+      console.log(response.data.data.accessToken)
+      // Save the authentication token 
+      localStorage.setItem("accessToken", response.data.data.accessToken);
       toast.success("Login successfull!");
       form.reset();
       router.push("/");
