@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import Navbar from "./_components/navbar";
 
 export default function Main() {
   const handleCheckout = async () => {
@@ -19,8 +18,6 @@ export default function Main() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
       <main className="flex-grow flex flex-col items-center justify-center">
         <h1 className="text-4xl font-bold mb-8 text-center">Welcome to E Mart</h1>
         <p className="text-lg text-gray-600 mb-8 text-center p-2">Experience the ease of our counterless payment system.</p>
@@ -28,6 +25,5 @@ export default function Main() {
           Begin Checkout
         </Button>
       </main>
-    </div>
   );
 }
