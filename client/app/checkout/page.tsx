@@ -1,11 +1,11 @@
 "use client"
+import QrScanner from '@/components/qrscanner'
 import React from 'react'
-import QrScanner from "@/components/ui/qrscanner";
 
 const page = () => {
   return (
     <div>
-        <QrScanner/>
+        <QrScanner />
     </div>
   )
 }
