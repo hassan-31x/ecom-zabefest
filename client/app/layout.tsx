@@ -8,10 +8,10 @@ import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const APP_NAME = "PWA App";
-const APP_DEFAULT_TITLE = "My Awesome PWA App";
-const APP_TITLE_TEMPLATE = "%s - PWA App";
-const APP_DESCRIPTION = "Best PWA app in the world!";
+const APP_NAME = "E-Mart";
+const APP_DEFAULT_TITLE = "E Mart | Modern Shopping Experience";
+const APP_TITLE_TEMPLATE = "%s - E Mart";
+const APP_DESCRIPTION = "Welcome to E Mart - Where Convenience Meets Innovation.";
 
 export const metadata: Metadata = {
   applicationName: APP_NAME,
@@ -19,6 +19,12 @@ export const metadata: Metadata = {
     default: APP_DEFAULT_TITLE,
     template: APP_TITLE_TEMPLATE,
   },
+  icons: [
+    {
+      url: '/logo.png',
+      href: '/logo.png '
+    }
+  ],
   description: APP_DESCRIPTION,
   manifest: "/manifest.json",
   appleWebApp: {
@@ -50,7 +56,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FFFFFF",
+  themeColor: "#FF7214",
 };
 
 

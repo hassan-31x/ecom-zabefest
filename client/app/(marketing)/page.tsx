@@ -33,7 +33,7 @@ export default function Main() {
   return (
     <div className="flex flex-col items-center justify-center max-w-[95vw] mx-auto">
       <div className="flex flex-col items-center justify-center">
-        <div className="mb-6 flex items-center border shadow-sm p-4 rounded-full text-uppercase bg-accent text-primary font-medium">
+        <div className="mb-6 flex items-center border shadow-sm py-3 px-4 rounded-full text-uppercase bg-accent text-primary font-medium">
           <ShoppingCart className="h-6 w-6 mr-2" />
           No 1 Shopping Experience
         </div>
