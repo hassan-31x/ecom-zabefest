@@ -66,8 +66,8 @@ const RegisterForm = () => {
   return (
     <div className="w-2/3 md:w-[85%] lg:w-[95%] xl:w-[85%] flex flex-col items-center">
       <div className="mb-10 space-y-1">
-        <h2 className="font-bold text-3xl md:text-4xl text-center">Welcome Back</h2>
-        <p className="text-xs md:text-sm text-center text-customGray">Login to your account</p>
+        <h2 className="font-bold text-3xl md:text-4xl text-center">Welcome to E Mart 👋</h2>
+        <p className="text-xs md:text-sm text-center text-customGray">Create your account & shop effortlessly!</p>
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-4 flex-col items-center w-full mb-4">
