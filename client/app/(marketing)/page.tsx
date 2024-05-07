@@ -51,7 +51,7 @@ export default function Main() {
       {/* <Button size="lg" className="hover:bg-orange-600 font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out" asChild> */}
       {/* <Link href="/checkout">Begin Checkout</Link> */}
       <Button size="lg" className="hover:bg-orange-600 font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out" onClick={handleCheckout}>
-        Begin Chekcout
+        Begin Checkout
       </Button>
     </div>
   );
