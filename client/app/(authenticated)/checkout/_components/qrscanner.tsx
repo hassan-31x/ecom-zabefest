@@ -7,19 +7,25 @@ import { toast } from "react-toastify";
 
 import "./scanner.css";
 
+type Product = {
+  unitId: string;
+  name: string;
+  price: number;
+  image: string;
+  productId: number;
+  branchId: number
+};
+
 const QrScanner = () => {
   const [isMounted, setIsMounted] = useState(false);
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<Product[]>([]);
 
-  const handleResult = (result: any) => {
+  const handleResult = (result: string) => {
     if (result) {
-      result = JSON.parse(result);
-      const idx = items.findIndex((item) => item.unitId === result.unitId);
+      const product = JSON.parse(result) as Product
+      const idx = items.findIndex((item) => item.unitId === product.unitId);
       if (idx === -1) {
-        
-        
-        setItems([...items, result]);
-        console.log(result)
+        setItems([...items, product]);
       }
     }
   };
