@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function Main() {
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center max-w-[95vw]">
       <div className="flex flex-col items-center justify-center">
         <div className="mb-6 flex items-center border shadow-sm p-4 rounded-full text-uppercase bg-accent text-primary font-medium">
           <ShoppingCart className="h-6 w-6 mr-2" />
