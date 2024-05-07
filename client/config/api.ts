@@ -1,7 +1,10 @@
 import axios from "axios";
 
 const getAccessToken = () => {
-  return localStorage.getItem("accessToken");
+  if (typeof window !== 'undefined') {
+    return window.localStorage.getItem("accessToken");
+  }
+  return null
 };
 
 const API = axios.create({

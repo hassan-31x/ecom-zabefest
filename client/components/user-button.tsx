@@ -1,19 +1,20 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import Cookies from "js-cookie";
+
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useAuth } from "@/providers/AuthProvider";
-import Link from "next/link";
-import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
+import { Button } from "./ui/button";
+
+import { useAuth } from "@/providers/AuthProvider";
 import API from "@/config/api";
-import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
 
 const UserButton = () => {
-  const { user, setUser, loading } = useAuth();
   const router = useRouter();
-  
+  const { user, setUser, loading } = useAuth();
 
   if (loading) return <span>loading</span>;
 
@@ -27,7 +28,9 @@ const UserButton = () => {
     } catch (err) {
       console.log(err);
     } finally {
-      localStorage.removeItem("accessToken");
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem("accessToken");
+      }
       Cookies.remove("accessToken");
       setUser(null);
       router.refresh();

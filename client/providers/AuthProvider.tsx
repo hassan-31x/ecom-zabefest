@@ -22,16 +22,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     } catch (error) {
       console.error(error);
       setUser(null)
-      localStorage.removeItem('accessToken')
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('accessToken')
+      }
       Cookies.remove('accessToken')
     } finally {
       setLoading(false)
     }
   }
-  console.log(user, localStorage.getItem('accessToken'))
+  // console.log(user, window.localStorage.getItem('accessToken'))
 
   useEffect(() => {
-    if(!user && localStorage.getItem('accessToken')) {
+    if(!user && typeof window !== 'undefined' && localStorage.getItem('accessToken')) {
       console.log('called')
       fetchUserDetails()
     }

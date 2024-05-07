@@ -35,7 +35,9 @@ const LoginForm = () => {
     try {
       const response = await API.post('auth/login', data);
       Cookies.set("accessToken", response.data.data.accessToken, { expires: 7 });
-      localStorage.setItem("accessToken", response.data.data.accessToken);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem("accessToken", response.data.data.accessToken);
+      }
       toast.success("Login successfull!");
       form.reset();
       router.refresh();
