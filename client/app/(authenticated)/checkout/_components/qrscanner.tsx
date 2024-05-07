@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { Scanner } from "@yudiel/react-qr-scanner";
+import { toast as sonnerToast } from "sonner"
 import { toast } from "react-toastify";
 
 import "./scanner.css";
@@ -26,6 +27,7 @@ const QrScanner = () => {
       const idx = items.findIndex((item) => item.unitId === product.unitId);
       if (idx === -1) {
         setItems([...items, product]);
+        sonnerToast.success(`${product.name} added to cart`)
       }
     }
   };
