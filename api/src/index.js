@@ -8,6 +8,7 @@ import cookieParser from "cookie-parser";
 import { errorMiddleware } from "./middlewares/error.middleware.js";
 // Routes
 import authRoute from "./routes/auth.route.js";
+import productRoute from "./routes/product.route.js";
 
 // .env config
 config();
@@ -39,6 +40,7 @@ app.get("/", (req, res) => {
 
 // Routes
 app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/products", productRoute);
 
 // Custom middleware for errors
 app.use(errorMiddleware);
