@@ -1,9 +1,10 @@
 "use client"
-import React from 'react'
-import { Button } from '@/components/ui/button';
+
 import Link from 'next/link';
 import QrScanner from './_components/qrscanner';
-const page = () => {
+import { Button } from '@/components/ui/button';
+
+const CheckoutPage = () => {
   return (
     <div>
       <div className="p-5">
@@ -33,4 +34,4 @@ const page = () => {
   )
 }
 
-export default page
+export default CheckoutPage

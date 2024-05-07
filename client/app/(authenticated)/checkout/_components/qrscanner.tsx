@@ -9,7 +9,6 @@ import "./scanner.css";
 
 const QrScanner = () => {
   const [data, setData] = useState("");
-  const [error, setError] = useState(null);
 
   const handleResult = (result: any) => {
     if (result) {
@@ -34,6 +33,9 @@ const QrScanner = () => {
           }}
           onResult={(text, result) => handleResult(text)}
           onError={(error) => toast.error(error?.message)}
+          components={{
+            audio: false,
+          }}
         />
       </div>
     </div>
