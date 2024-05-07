@@ -3,7 +3,14 @@ import jwt from "jsonwebtoken";
 
 export const registerUser = async (req, res, next) => {
   try {
-    const { email, password, name,cnicNumber,bankAccountNumber,phoneNumber } = req.body;
+    const {
+      email,
+      password,
+      name,
+      cnicNumber,
+      bankAccountNumber,
+      phoneNumber,
+    } = req.body;
     if (password.includes(" "))
       return next("Password must not contain any white spaces");
 
@@ -54,12 +61,10 @@ const generateTokens = async (userId) => {
 export const loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    console.log("🚀 ~ loginUser ~ password:", password)
     if (!email) return next("Email is required");
     if (!password) return next("Password is required");
 
     const userData = await User.findOne({ email });
-    console.log("🚀 ~ loginUser ~ userData:", userData)
     if (!userData) return next("Invalid credentials");
 
     const isPassCorrect = await userData.comparePassword(password);
@@ -94,7 +99,6 @@ export const loginUser = async (req, res, next) => {
 
 export const logoutUser = async (req, res, next) => {
   try {
-    // Find user and reset the refreshToken in db
     await User.findByIdAndUpdate(
       req.user._id,
       {
