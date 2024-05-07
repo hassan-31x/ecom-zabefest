@@ -20,7 +20,7 @@ const QrScanner = () => {
 
   return (
     <div>
-    <h2 className="flex justify-center text-3xl">Scan Product</h2>
+    <h2 className="flex justify-center text-3xl font-semibold font-mono">Scan Product</h2>
       <QrReader
         onResult={handleResult}
         style={{ width: '100%' }}
