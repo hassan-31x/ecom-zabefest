@@ -9,13 +9,18 @@ import "./scanner.css";
 
 const QrScanner = () => {
   const [isMounted, setIsMounted] = useState(false);
-  const [data, setData] = useState("");
+  const [items, setItems] = useState([]);
 
   const handleResult = (result: any) => {
     if (result) {
-      setData(result.text);
-      const quantityInput = prompt("Enter quantity:");
-      console.log(quantityInput);
+      result = JSON.parse(result);
+      const idx = items.findIndex((item) => item.unitId === result.unitId);
+      if (idx === -1) {
+        
+        
+        setItems([...items, result]);
+        console.log(result)
+      }
     }
   };
 
@@ -26,8 +31,8 @@ const QrScanner = () => {
   if (!isMounted) return null;
 
   return (
-    <div className="h-screen flex items-center w-full scanner">
-      <div className="h-1/2 lg:h-full w-full">
+    <div className="flex flex-col lg:flex-row items-center w-full scanner">
+      <div className="h-1/2 lg:h-full md:w-1/2 w-full">
         <Scanner
           styles={{
             container: {
@@ -44,6 +49,19 @@ const QrScanner = () => {
             audio: false,
           }}
         />
+      </div>
+
+      <div>
+          {items.map((item, index) => {
+            if (!item) return null;
+           return (
+            <div key={index} className="flex justify-between items-center w-full gap-4">
+              <img src={item.image} className="w-20 h-20" alt="" />
+              <p>{item.name}</p>
+              <p>{item.price}</p>
+            </div>
+          
+          )})}
       </div>
     </div>
   );
