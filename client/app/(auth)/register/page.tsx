@@ -7,12 +7,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
-import axios from "axios";
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { PasswordInput } from "@/components/ui/password-input";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import API from "@/config/api";
 
 interface FormData {
   name: string;
@@ -51,7 +51,7 @@ const RegisterForm = () => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}auth/register`, data, {
+      const response = await API.post('auth/register', data, {
         headers: {
           "Content-Type": "application/json",
         },

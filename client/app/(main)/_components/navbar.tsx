@@ -1,3 +1,4 @@
+import UserButton from "@/components/user-button";
 import { ShoppingCart } from "lucide-react";
 
 export default function Navbar() {
@@ -11,7 +12,9 @@ export default function Navbar() {
           <h1 className="font-bold text-xl hidden md:inline">E Mart</h1>
         </div>
 
-        <div className="ml-auto flex items-center gap-x-2">Hello</div>
+        <div className="ml-auto">
+            <UserButton />
+        </div>
       </div>
     </nav>
   );

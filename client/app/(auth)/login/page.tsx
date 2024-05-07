@@ -6,13 +6,14 @@ import Link from "next/link";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 import * as Yup from "yup";
-import axios from "axios";
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { PasswordInput } from "@/components/ui/password-input";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import API from "@/config/api";
 
 interface FormData {
   email: string;
@@ -32,9 +33,8 @@ const LoginForm = () => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}auth/login`, data);
-      console.log(response.data.data.accessToken)
-      // Save the authentication token 
+      const response = await API.post('auth/login', data);
+      Cookies.set("accessToken", response.data.data.accessToken, { expires: 7 });
       localStorage.setItem("accessToken", response.data.data.accessToken);
       toast.success("Login successfull!");
       form.reset();

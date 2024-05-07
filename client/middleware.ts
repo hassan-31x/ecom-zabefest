@@ -3,24 +3,15 @@ import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  const publicPaths = [
-    "/",
-    "/login",
-    "/register",
-  ];
+  const publicPaths = ["/", "/login", "/register"];
   const isPublicPath = publicPaths.includes(path);
 
-  const privatePaths = [
-    "/checkout",
-    "/success",
-    "/orders",
-    "/orders/:id/",
-  ];
+  const privatePaths = ["/checkout", "/success", "/orders", "/orders/:id/"];
   const isPrivatePath = privatePaths.includes(path);
 
   const token = request.cookies.get("accessToken")?.value;
 
-  if (isPublicPath && token) {
+  if (isPublicPath && path != "/" && token) {
     return NextResponse.redirect(new URL("/", request.nextUrl));
   }
 
@@ -30,13 +21,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/",
-    "/login",
-    "/register",
-    "/checkout",
-    "/success",
-    "/orders",
-    "/orders/:id/",
-  ],
+  matcher: ["/", "/login", "/register", "/checkout", "/success", "/orders", "/orders/:id/"],
 };
