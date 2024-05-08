@@ -3,10 +3,10 @@ import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  const publicPaths = ["/", "/login", "/register","/checkout"];
+  const publicPaths = ["/", "/login", "/register"];
   const isPublicPath = publicPaths.includes(path);
 
-  const privatePaths = ["/success", "/orders", "/orders/:id/"];
+  const privatePaths = ["/checkout", "/success", "/orders", "/orders/:id/"];
   const isPrivatePath = privatePaths.includes(path);
 
   const token = request.cookies.get("accessToken")?.value;

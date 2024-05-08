@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import API from "@/config/api";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Trash2 } from "lucide-react";
+import { QrReader } from "react-qr-reader";
 
 type Product = {
   unitId: number;
@@ -27,6 +28,13 @@ type ProductCart = Product & {
 };
 
 const QrScanner = () => {
+  // navigator.getUserMedia(
+  //   { audio: true, video: true },
+  //   function (stream) {
+  //     stream.getTracks().forEach((x) => x.stop());
+  //   },
+  //   (err) => console.log(err)
+  // );
   const [isMounted, setIsMounted] = useState(false);
   const [items, setItems] = useState<ProductCart[]>([
     {
@@ -37,7 +45,8 @@ const QrScanner = () => {
       productId: 1,
       quantity: 1,
       branchId: 1,
-    }, {
+    },
+    {
       unitId: 2,
       name: "Test Product 2",
       price: 200,
@@ -45,7 +54,8 @@ const QrScanner = () => {
       productId: 2,
       quantity: 1,
       branchId: 1,
-    }, {
+    },
+    {
       unitId: 3,
       name: "Test Product 3",
       price: 300,
@@ -53,21 +63,24 @@ const QrScanner = () => {
       productId: 3,
       quantity: 1,
       branchId: 1,
-    }
+    },
   ]);
   const [loading, setLoading] = useState(false);
 
-  const router = useRouter()
+  const router = useRouter();
 
   const handleResult = (result: string) => {
     if (result) {
       const product = JSON.parse(result) as Product;
       const idx = items.findIndex((item) => item.unitId === product.unitId);
       if (idx === -1) {
-        setItems([...items, {
-          ...product,
-          quantity: 1,
-        }]);
+        setItems([
+          ...items,
+          {
+            ...product,
+            quantity: 1,
+          },
+        ]);
         sonnerToast.success(`${product.name} added to cart`);
       } else {
         const newItems = [...items];
@@ -100,8 +113,6 @@ const QrScanner = () => {
       console.log(checkoutSession);
       const checkoutSessionData = checkoutSession.data;
 
-
-
       // Redirect to checkout
       const stripe = await getStripe();
       const { error } = await stripe!.redirectToCheckout({
@@ -110,7 +121,7 @@ const QrScanner = () => {
         // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
         sessionId: checkoutSessionData?.id, //This is is used as the query parameter to the success page.
       });
-      
+
       if (error) {
         console.log(error);
         throw new Error(error.message);
@@ -118,7 +129,7 @@ const QrScanner = () => {
     } catch (error) {
       toast.error("An error occurred. Please try again later.");
       console.log("ERROR OCCURED");
-      console.log(error)
+      console.log(error);
     } finally {
       setLoading(false);
     }
@@ -149,6 +160,11 @@ const QrScanner = () => {
             audio: false,
           }}
         />
+
+        {/* <QrReader
+          onResult={() => console.log("run")}
+          style={{ width: "100%" }}
+        /> */}
       </div>
 
       <div className="flex flex-col gap-4 md:w-1/2 w-full items-center">
@@ -156,7 +172,10 @@ const QrScanner = () => {
           {items.map((item, index) => {
             if (!item) return null;
             return (
-              <div key={index} className="flex justify-between items-center w-full max-w-[500px] gap-4">
+              <div
+                key={index}
+                className="flex justify-between items-center w-full max-w-[500px] gap-4"
+              >
                 <img src={item.image} className="w-20 h-20" alt="" />
                 <p>{item.name}</p>
                 <p>{item.price}</p>
@@ -169,20 +188,26 @@ const QrScanner = () => {
 
                 {/* <Trash2 className="text-destructive" /> */}
                 {/* </Button> */}
-                <span className="text-destructive font-medium text-sm cursor-pointer" onClick={() => {
-                  const newItems = [...items];
-                  newItems.splice(index, 1);
-                  setItems(newItems);
-                }}>
-
-                Delete
+                <span
+                  className="text-destructive font-medium text-sm cursor-pointer"
+                  onClick={() => {
+                    const newItems = [...items];
+                    newItems.splice(index, 1);
+                    setItems(newItems);
+                  }}
+                >
+                  Delete
                 </span>
               </div>
             );
           })}
         </div>
 
-        {items?.length>0 && <Button className="w-full max-w-[500px]" onClick={checkout}>{loading ? 'Loading..' : 'Checkout'}</Button>}
+        {items?.length > 0 && (
+          <Button className="w-full max-w-[500px]" onClick={checkout}>
+            {loading ? "Loading.." : "Checkout"}
+          </Button>
+        )}
       </div>
     </div>
   );

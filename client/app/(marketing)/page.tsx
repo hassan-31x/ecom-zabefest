@@ -15,15 +15,15 @@ export default function Main() {
 
   const handleCheckout = async () => {
     try {
-      const loc = await getLocation();
-      const res = await API.post("/products/verify-location", loc);
+      // const loc = await getLocation();
+      // const res = await API.post("/products/verify-location", loc);
 
-      if (res.status === 200) {
-        setLocation(res.data.location)
-        router.push("/checkout");
-      } else {
-        toast.error("You are not allowed to checkout from this location");
-      }
+      // if (res.status === 200) {
+      // setLocation(res.data.location);
+      router.push("/checkout");
+      // } else {
+      //   toast.error("You are not allowed to checkout from this location");
+      // }
     } catch (err) {
       console.log(err);
       toast.error("You are not allowed to checkout from this location");
@@ -45,12 +45,18 @@ export default function Main() {
       </div>
 
       <div className="text-sm md:text-lg md:leading-[1.5rem] mt-0 max-w-xs md:max-w-2xl text-center mx-auto text-customGray mb-6">
-        Welcome to E Mart - Where Convenience Meets Innovation. Our cutting-edge online POS system empowers shoppers and retailers alike with lightning-fast transactions, real-time
-        inventory management, and intuitive scanning technology.
+        Welcome to E Mart - Where Convenience Meets Innovation. Our cutting-edge
+        online POS system empowers shoppers and retailers alike with
+        lightning-fast transactions, real-time inventory management, and
+        intuitive scanning technology.
       </div>
       {/* <Button size="lg" className="hover:bg-orange-600 font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out" asChild> */}
       {/* <Link href="/checkout">Begin Checkout</Link> */}
-      <Button size="lg" className="hover:bg-orange-600 font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out" onClick={handleCheckout}>
+      <Button
+        size="lg"
+        className="hover:bg-orange-600 font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out"
+        onClick={handleCheckout}
+      >
         Begin Checkout
       </Button>
     </div>

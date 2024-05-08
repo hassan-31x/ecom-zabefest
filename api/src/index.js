@@ -16,15 +16,15 @@ config();
 
 const app = express();
 
-const corsOptions = {
-  credentials: true,
-  origin: ['http://localhost:3000', 'https://ecom-zabefest.vercel.app']
-    // process.env.NODE_ENV === "production"
-    //   ? "http://localhost:3000"
-    //   : "http://localhost:3000",
-};
+// const corsOptions = {
+//   credentials: true,
+//   origin: ['http://localhost:3000', 'https://ecom-zabefest.vercel.app']
+//     // process.env.NODE_ENV === "production"
+//     //   ? "http://localhost:3000"
+//     //   : "http://localhost:3000",
+// };
 
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json({ limit: "16kb" }));
 app.use(express.static("public"));
 // For url inputs
