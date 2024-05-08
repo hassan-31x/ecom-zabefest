@@ -85,15 +85,6 @@ const QrScanner = () => {
     // Create a new applicant in Sanity
     setLoading(true);
     try {
-      // const checkoutSession: Stripe.Checkout.Session = await fetchPostJSON("/api/checkoutSession", {
-      //   items: items.map((item) => {
-      //     return {
-      //       name: item.displayName,
-      //       price: item.price,
-      //     }
-      //   })
-      //   // address : address,
-      // });
       const checkoutSession = await API.post("/checkout", {
         items: items.map((item) => {
           return {
@@ -119,7 +110,11 @@ const QrScanner = () => {
         // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
         sessionId: checkoutSessionData?.id, //This is is used as the query parameter to the success page.
       });
-
+      
+      if (error) {
+        console.log(error);
+        throw new Error(error.message);
+      }
     } catch (error) {
       toast.error("An error occurred. Please try again later.");
       console.log("ERROR OCCURED");
@@ -165,17 +160,23 @@ const QrScanner = () => {
                 <img src={item.image} className="w-20 h-20" alt="" />
                 <p>{item.name}</p>
                 <p>{item.price}</p>
-                <Button size='icon' className="text-white" onClick={() => {
-                  console.log('niga')
+                <p>{item.quantity}</p>
+                {/* <Button size='icon' className="text-white" onClick={() => {
+                  const newItems = [...items];
+                  newItems.splice(index, 1);
+                  setItems(newItems);
+                }}> */}
+
+                {/* <Trash2 className="text-destructive" /> */}
+                {/* </Button> */}
+                <span className="text-destructive font-medium text-sm cursor-pointer" onClick={() => {
                   const newItems = [...items];
                   newItems.splice(index, 1);
                   setItems(newItems);
                 }}>
 
-                {/* <Trash2 className="text-destructive" /> */}
-                {/* Delete */}
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-arrow-left"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
-                </Button>
+                Delete
+                </span>
               </div>
             );
           })}
