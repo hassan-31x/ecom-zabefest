@@ -22,6 +22,7 @@ type OrderDetails = {
 
 const Success = () => {
   const [orderDetails, setOrderDetails] = useState<OrderDetails>({ data: [] });
+  const [isMounted, setIsMounted] = useState(false);
 
   const params = useSearchParams();
   const sessionId = params.get("session_id");
@@ -43,7 +44,15 @@ const Success = () => {
     }
   }, [sessionId]);
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, [])
+
   if (!sessionId) {
+    return null;
+  }
+
+  if (!isMounted) {
     return null;
   }
 

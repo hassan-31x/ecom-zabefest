@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { ArrowLeft } from "lucide-react";
 
-import Success from "./_components/success";
+import Success from "./_components/successCoomponent";
 const SuccessPage = () => {
   return (
     <div className="relative">
