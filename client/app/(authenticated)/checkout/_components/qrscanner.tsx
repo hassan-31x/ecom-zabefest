@@ -6,12 +6,12 @@ import { Scanner } from "@yudiel/react-qr-scanner";
 import { toast as sonnerToast } from "sonner";
 import { toast } from "react-toastify";
 import getStripe from "@/lib/getStripe";
-import Stripe from "stripe";
 
 import "./scanner.css";
 import { Button } from "@/components/ui/button";
 import API from "@/config/api";
 import { useRouter } from "next/navigation";
+import { ArrowLeft, Trash2 } from "lucide-react";
 
 type Product = {
   unitId: number;
@@ -22,17 +22,38 @@ type Product = {
   branchId: number;
 };
 
+type ProductCart = Product & {
+  quantity: number;
+};
+
 const QrScanner = () => {
   const [isMounted, setIsMounted] = useState(false);
-  const [items, setItems] = useState<Product[]>([
+  const [items, setItems] = useState<ProductCart[]>([
     {
       unitId: 1,
-      name: "Product 1",
+      name: "Test Product",
       price: 100,
       image: "https://via.placeholder.com/150",
       productId: 1,
+      quantity: 1,
       branchId: 1,
-    },
+    }, {
+      unitId: 2,
+      name: "Test Product 2",
+      price: 200,
+      image: "https://via.placeholder.com/150",
+      productId: 2,
+      quantity: 1,
+      branchId: 1,
+    }, {
+      unitId: 3,
+      name: "Test Product 3",
+      price: 300,
+      image: "https://via.placeholder.com/150",
+      productId: 3,
+      quantity: 1,
+      branchId: 1,
+    }
   ]);
   const [loading, setLoading] = useState(false);
 
@@ -43,7 +64,15 @@ const QrScanner = () => {
       const product = JSON.parse(result) as Product;
       const idx = items.findIndex((item) => item.unitId === product.unitId);
       if (idx === -1) {
-        setItems([...items, product]);
+        setItems([...items, {
+          ...product,
+          quantity: 1,
+        }]);
+        sonnerToast.success(`${product.name} added to cart`);
+      } else {
+        const newItems = [...items];
+        newItems[idx].quantity += 1;
+        setItems(newItems);
         sonnerToast.success(`${product.name} added to cart`);
       }
     }
@@ -127,21 +156,32 @@ const QrScanner = () => {
         />
       </div>
 
-      <div className="flex flex-col gap-4">
-        <div>
+      <div className="flex flex-col gap-4 md:w-1/2 w-full items-center">
+        <div className="w-full flex flex-col items-center">
           {items.map((item, index) => {
             if (!item) return null;
             return (
-              <div key={index} className="flex justify-between items-center w-full gap-4">
+              <div key={index} className="flex justify-between items-center w-full max-w-[500px] gap-4">
                 <img src={item.image} className="w-20 h-20" alt="" />
                 <p>{item.name}</p>
                 <p>{item.price}</p>
+                <Button size='icon' className="text-white" onClick={() => {
+                  console.log('niga')
+                  const newItems = [...items];
+                  newItems.splice(index, 1);
+                  setItems(newItems);
+                }}>
+
+                {/* <Trash2 className="text-destructive" /> */}
+                {/* Delete */}
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-arrow-left"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+                </Button>
               </div>
             );
           })}
         </div>
 
-        <Button onClick={checkout}>{loading ? 'Loading..' : 'Checkout'}</Button>
+        {items?.length>0 && <Button className="w-full max-w-[500px]" onClick={checkout}>{loading ? 'Loading..' : 'Checkout'}</Button>}
       </div>
     </div>
   );
