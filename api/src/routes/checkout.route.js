@@ -48,4 +48,16 @@ router.post('/', verifyAuth, async (req, res) => {
       }
 })
 
+router.get('/:id', verifyAuth, async (req, res) => {
+    const { id } = req.params;
+    try {
+      const sessionDetails = await stripe.checkout.sessions.listLineItems(id);
+      return res.status(200).json(sessionDetails);
+    } catch (err) {
+      console.log(err)
+      const errorMessage = err instanceof Error ? err.message : "Internal server error";
+      return res.status(500).json({ message: errorMessage });
+    }
+})
+
 export default router;
